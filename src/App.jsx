@@ -1,45 +1,61 @@
 import { useState, useEffect } from 'react'
+import { useMeals } from './hooks/useMeals'
+import { Navbar, Text, Input, Spacer, Container, Card, Button, Row, Grid, Loading } from '@nextui-org/react'
 import './App.css'
 
 function App () {
   const [meals, setMeals] = useState()
   const [search, setSearch] = useState('')
-  const API_URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`
+  const { newMeals } = useMeals(search)
   const handleChange = (event) => {
     event.preventDefault()
     setSearch(event.target.value)
   }
   useEffect(() => {
-    fetch(API_URL)
-      .then((response) => response.json())
-      .then(data => { setMeals(data.meals) })
-    console.log(meals)
+    setMeals(newMeals)
   }, [search])
   return (
     <>
-      <head className='nav'>
-        <h4>Meal finder</h4>
-        <h4>Jacinto Martinez</h4>
-      </head>
-      <main className='mainApp'>
-        <input className='input' type='text' placeholder='Meal or ingredient' name={search} value={search} onChange={handleChange} />
+      <Navbar>
+        <Text h4>
+          Meal Finder
+        </Text>
+        <Text h4>
+          Jacinto Martinez
+        </Text>
+      </Navbar>
+      <Container grid justify='center' align='center'>
+        <Spacer />
+        <Input bordered type='text' placeholder='Search your meal' name={search} value={search} onChange={handleChange} />
+        <Spacer />
+      </Container>
+      <Grid.Container justify='center' css={{ p: 20 }} gap={1}>
         {
         search.length > 0
           ? meals
             ? meals.map(meal => {
               return (
-                <div key={meal.idMeal} className='mealDiv'>
-                  <h3>{meal.strMeal}</h3>
-                  <img src={meal.strMealThumb} alt='meal image' />
-                  <button>Recipe</button>
-                </div>
+                <Grid xs={3} key={meal.idMeal}>
+                  <Card isPressable css={{ width: '100%' }} variant='bordered'>
+                    <Card.Body css={{ p: 0 }}>
+                      <Card.Image width='100%' height={140} objectFit='cover' src={meal.strMealThumb} alt='meal image' />
+                    </Card.Body>
+                    <Card.Divider />
+                    <Card.Footer css={{ justifyItems: 'flex-start' }}>
+                      <Row wrap='wrap' justify='space-between' align='center'>
+                        <Text b css={{ maxWidth: '50%' }}>{meal.strMeal}</Text>
+                        <Button size='sm'>Recipe</Button>
+                      </Row>
+                    </Card.Footer>
+                  </Card>
+                </Grid>
               )
             }
             )
             : <p>no hay na</p>
           : <p>no hay na</p>
           }
-      </main>
+      </Grid.Container>
     </>
   )
 }
