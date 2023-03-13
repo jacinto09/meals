@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Grid, Card } from '@nextui-org/react'
+import { Container, Card, Text, Row } from '@nextui-org/react'
 import { useMealsById } from './../hooks/useMealById'
 export function Meal () {
   const { idMeal } = useParams()
@@ -16,19 +16,24 @@ export function Meal () {
     newMealId
       ? newMealId.map(meal => {
         return (
-          <Grid key={meal.idMeal}>
-            <Card>
-              <Card.Header>
-                {meal.strMeal}
+          <Container key={meal.idMeal} justify='center' alignContent='center'>
+            <Card css={{ height: '100vh' }}>
+              <Card.Header css={{ height: '20vh' }}>
+                <Row justify='center'>
+                  <Text h2>{meal.strMeal}</Text>
+                </Row>
               </Card.Header>
-              <Card.Image src={meal.strMealThumb} />
-              <Card.Footer>
-                {meal.strInstructions}
+              <Card.Image src={meal.strMealThumb} css={{ height: '80vh' }} objectFit='cover' />
+              <Card.Footer css={{ height: '50vh' }}>
+                <Row align='center'>
+                  <Text>{meal.strInstructions}</Text>
+                </Row>
               </Card.Footer>
             </Card>
-          </Grid>
+          </Container>
         )
       })
       : 'No tenemos Informacion'
   )
 }
+export default Meal
