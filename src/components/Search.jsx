@@ -21,7 +21,7 @@ export function Search () {
         <Input bordered type='text' placeholder='Search your meal' name={search} value={search} onChange={handleChange} aria-label='search bar' />
         <Spacer />
       </Container>
-      <Grid.Container justify='center' css={{ p: 20 }} gap={1}>
+      <Grid.Container justify='center' gap={1}>
         {
         search.length > 0
           ? meals
