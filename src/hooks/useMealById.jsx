@@ -7,6 +7,7 @@ export function useMealsById (idMeal) {
     fetch(API_URL)
       .then((response) => response.json())
       .then(data => setNewMealsById(data.meals))
+    console.log('usemealsid')
   }, [idMeal])
   return ({ newMealsById })
 }

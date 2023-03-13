@@ -8,7 +8,7 @@ function App () {
   return (
     <>
       <BrowserRouter>
-        <Navbar>
+        <Navbar isBordered variant='sticky'>
           <Link to='/'>
             <Text h4>Meal Finder </Text>
           </Link>
@@ -18,7 +18,7 @@ function App () {
         </Navbar>
         <Routes>
           <Route exact path='/' element={<Search />} />
-          <Route path='/:idMeal' element={<Meal />} />
+          <Route path='/:id' element={<Meal />} />
         </Routes>
       </BrowserRouter>
     </>
