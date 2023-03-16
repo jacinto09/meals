@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link as Go } from 'react-router-dom'
 import { Container, Image, Text, Row, Spacer, Link } from '@nextui-org/react'
 export function Meal () {
   const { id } = useParams()
@@ -59,6 +59,8 @@ export function Meal () {
             <Row>
               <Text>{meal.strInstructions}</Text>
             </Row>
+            <Spacer />
+            <Link><Go to='/'>Go Back</Go></Link>
             <Spacer />
           </Container>
         )
